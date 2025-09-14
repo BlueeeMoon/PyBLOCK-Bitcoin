@@ -1,40 +1,25 @@
-Bitcoin Knots
-=============
+𓆩𓆣𓆪
+====
 
-https://bitcoinknots.org
-
-For an immediately usable, binary version of the Bitcoin Knots software, see
+For an immediately usable, binary version of the Bitcoin 𓆩𓆣𓆪 software, see
 the website.
-
-What is Bitcoin Knots?
-----------------------
-
-Bitcoin Knots connects to the Bitcoin peer-to-peer network to download and fully
-validate blocks and transactions. It also includes a wallet and graphical user
-interface, which can be optionally built.
-
-Further information about Bitcoin Knots is available in the [doc folder](/doc).
 
 License
 -------
 
-Bitcoin Knots is released under the terms of the MIT license. See [COPYING](COPYING) for more
+Bitcoin 𓆩𓆣𓆪 is released under the terms of the MIT license. See [COPYING](COPYING) for more
 information or see https://opensource.org/licenses/MIT.
 
 Development Process
 -------------------
 
 Development generally takes place as part of [Bitcoin Core](https://github.com/bitcoin/bitcoin), and is merged into
-Knots for each release.
+𓆩𓆣𓆪 for each release.
 
 Even if your pull request to Core is closed, or if your feature is not
 suitable for Core (eg, because it builds on a feature not supported in Core;
 relies on centralised services; etc), it may still be eligible for inclusion
-in Bitcoin Knots. In this case, a pull request may be opened on the
-[Knots GitHub](https://github.com/bitcoinknots/bitcoin) for review and consideration.
-When accepted, you are expected to maintain the submitted branch in your own
-repository, and it will be automatically merged into new releases of Knots.
-
+in Bitcoin 𓆩𓆣𓆪. 
 Developer IRC can be found on Freenode at #bitcoin-dev.
 
 Testing
