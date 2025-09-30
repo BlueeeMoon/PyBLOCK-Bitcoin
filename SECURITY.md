@@ -1,3 +1,3 @@
 # Security Policy
 
-https://github.com/SatoshiNakamotoBitcoin/Genesis
+https://github.com/PyBLOCK-Bitcoin/bitcoin
