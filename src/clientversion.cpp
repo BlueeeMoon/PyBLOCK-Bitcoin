@@ -70,8 +70,8 @@ std::string FormatSubVersion(const std::string& name, int nClientVersion, const 
     std::string ua = strprintf("/%s:%s%s/", name, FormatVersion(nClientVersion), comments_str);
     if (!base_name_only) {
         static const auto ua_knots = []() -> std::string {
-            const auto pos{CLIENT_BUILD.find(".genesis")};
-            return "Genesis:" + CLIENT_BUILD.substr(pos + 8) + "/";
+            const auto pos{CLIENT_BUILD.find(".pyblock")};
+            return "PyBLOCK:" + CLIENT_BUILD.substr(pos + 8) + "/";
         }();
         ua += ua_knots;
     }
@@ -92,7 +92,7 @@ std::string CopyrightHolders(const std::string& strPrefix)
 
 std::string LicenseInfo()
 {
-    const std::string URL_SOURCE_CODE = "<https://github.com/SatoshiNakamotoBitcoin/Genesis>";
+    const std::string URL_SOURCE_CODE = "<https://github.com/PyBLOCK-Bitcoin/bitcoin>";
 
     return CopyrightHolders(strprintf(_("Copyright (C) %i-%i"), 2009, COPYRIGHT_YEAR).translated + " ") + "\n" +
            "\n" +
