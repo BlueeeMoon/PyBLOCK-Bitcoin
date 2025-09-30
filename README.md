@@ -1,4 +1,4 @@
-<img src="./pybitblock/resources/images/Logo.PNG" width="80%" />
+<img src="https://avatars.githubusercontent.com/u/234659742?v=4" width="80%" />
 
 git clone https://github.com/PyBLOCK-Bitcoin/bitcoin.git
 cd bitcoin
