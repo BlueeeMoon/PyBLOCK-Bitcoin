@@ -1,13 +1,27 @@
-<img src="https://avatars.githubusercontent.com/u/234659742?v=4" width="80%" />
+<img src="https://avatars.githubusercontent.com/u/234659742?v=4" width="20%" />
+
+
+
+-----
 
 git clone https://github.com/PyBLOCK-Bitcoin/bitcoin.git
+
 cd bitcoin
+
 mkdir build
+
 cd build
+
 cmake .. -DCMAKE_INSTALL_PREFIX="" -DBUILD_DAEMON="ON" -DBUILD_CLI="ON" -DBUILD_GUI="ON"
+
 cmake --build . --target install --parallel $(nproc)
+
 cd bin
+
 ./bitcoin-qt
+
+-----
+
 
 <br />
 
