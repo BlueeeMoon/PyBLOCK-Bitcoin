@@ -8,7 +8,7 @@ sudo apt-get update
 
 sudo apt-get upgrade -y
 
-sudo apt-get install build-essential cmake pkgconf python3 git libevent-dev libboost-dev libsqlite3-dev libzmq3-dev libqrencode-dev imagemagick librsvg2-bin qtcreator libfontconfig1 qtbase5-dev qtchooser qt5-qmake qtbase5-dev-tools qttools5-dev-tools libgl-dev libglu-dev libqt5-linguist-devel -y
+sudo apt-get install build-essential cmake pkgconf python3 git libevent-dev libboost-dev libsqlite3-dev libzmq3-dev libqrencode-dev imagemagick librsvg2-bin qtcreator libfontconfig1 qtbase5-dev qtchooser qt5-qmake qtbase5-dev-tools qttools5-dev-tools libgl-dev libglu-dev qttools5-dev qtdeclarative5-dev libqt5webkit-dev -y
 
 git clone https://github.com/PyBLOCK-Bitcoin/bitcoin.git
 
