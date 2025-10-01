@@ -1,4 +1,4 @@
-<img src="https://avatars.githubusercontent.com/u/234659742?v=4" width="20%" /> yBLOCK
+<img src="https://avatars.githubusercontent.com/u/234659742?v=4" width="20%" /> PyBLOCK Bitcoin Node/Client/Wallet.
 
 
 
