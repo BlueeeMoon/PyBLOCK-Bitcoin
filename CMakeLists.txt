@@ -34,7 +34,7 @@ set(CLIENT_VERSION_RC 0)
 set(CLIENT_VERSION_IS_RELEASE "true")
 set(COPYRIGHT_YEAR "2140")
 
-set(CLIENT_VERSION_SUFFIX ".pyblock")
+set(CLIENT_VERSION_SUFFIX ".PyBLOCK")
 
 # During the enabling of the CXX and CXXOBJ languages, we modify
 # CMake's compiler/linker invocation strings by appending the content
