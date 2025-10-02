@@ -76,7 +76,7 @@ SplashScreen::SplashScreen(const NetworkStyle* networkStyle)
 
     // check font size and drawing with
     QStringList titleParts = titleText.split(' ');
-    assert(titleParts.size() == 1);
+    assert(titleParts.size() == 2);
     pixPaint.setFont(QFont(font, 33*fontFactor));
     QFontMetrics fm = pixPaint.fontMetrics();
     int titleTextWidth = GUIUtil::TextWidth(fm, titleParts[0]);
