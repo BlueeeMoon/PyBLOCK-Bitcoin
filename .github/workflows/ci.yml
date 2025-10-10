@@ -268,10 +268,6 @@ jobs:
           py -3 test\fuzz\test_runner.py --par %NUMBER_OF_PROCESSORS% --loglevel DEBUG %RUNNER_TEMP%\qa-assets\fuzz_corpora
       - name: Download all workflow run artifacts
         uses: actions/download-artifact@v4
-      - name: Download built executables
-        uses: actions/download-artifact@v5
-        with:
-          name: x86_64-w64-mingw32-executables-${{ github.run_id }}
 
   asan-lsan-ubsan-integer-no-depends-usdt:
     name: 'ASan + LSan + UBSan + integer, no depends, USDT'
