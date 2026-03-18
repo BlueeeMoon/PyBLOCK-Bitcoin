@@ -55,7 +55,7 @@ SplashScreen::SplashScreen(const NetworkStyle* networkStyle)
     pixmap.setDevicePixelRatio(devicePixelRatio);
 
     QPainter pixPaint(&pixmap);
-    pixPaint.setPen(QColor(0xFE5000, 0xFE5000, 0xFE5000));
+    pixPaint.setPen(QColor(0xfe, 0xaa, 0x35));
 
     // draw a slightly radial gradient
     QRadialGradient gradient(QPoint(0,0), splashSize.width()/devicePixelRatio);
