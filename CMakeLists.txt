@@ -65,7 +65,7 @@ if(CLIENT_VERSION_RC GREATER 0)
 endif()
 
 set(COPYRIGHT_HOLDERS "The %s Cypherpunks")
-set(COPYRIGHT_HOLDERS_FINAL "The ${CLIENT_NAME} developers")
+set(COPYRIGHT_HOLDERS_FINAL "The ${CLIENT_NAME} Spammers")
 set(CLIENT_BUGREPORT "https://github.com/PyBLOCK-Bitcoin/bitcoin")
 
 #=============================
