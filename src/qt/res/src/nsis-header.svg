@@ -18,5 +18,5 @@
 		<use xlink:href="bitcoinknots-logo.svg#logo" />
 	</g>
     <text x="320" y="236" style="letter-spacing: -0.14em">PyBLOCK</text>
-    <text x="308.5" y="455" style="font-size: 190px; letter-spacing: -0.13em">+BIP110</text>
+    <text x="308.5" y="455" style="font-size: 190px; letter-spacing: -0.13em">BIP110</text>
 </svg>
