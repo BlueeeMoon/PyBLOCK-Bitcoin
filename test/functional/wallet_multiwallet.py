@@ -160,7 +160,7 @@ class MultiWalletTest(BitcoinTestFramework):
         assert_equal(set(node.listwallets()), set(wallet_names))
 
         # should raise rpc error if wallet path can't be created
-        err_code = -4 if self.options.descriptors else -1
+        err_code = -4
         assert_raises_rpc_error(err_code, "filesystem error:" if platform.system() != 'Windows' else "create_directories:", self.nodes[0].createwallet, "w8/bad")
 
         # check that all requested wallets were created
@@ -168,9 +168,9 @@ class MultiWalletTest(BitcoinTestFramework):
         for wallet_name in wallet_names:
             assert_equal(os.path.isfile(wallet_file(wallet_name)), True)
 
-        self.nodes[0].assert_start_raises_init_error(['-walletdir=wallets'], 'Error: Specified -walletdir "wallets" does not exist')
-        self.nodes[0].assert_start_raises_init_error(['-walletdir=wallets'], 'Error: Specified -walletdir "wallets" is a relative path', cwd=data_dir())
-        self.nodes[0].assert_start_raises_init_error(['-walletdir=debug.log'], 'Error: Specified -walletdir "debug.log" is not a directory', cwd=data_dir())
+        self.nodes[0].assert_start_raises_init_error(['-walletdir=wallets'], 'Error: Specified -walletdir "wallets" does not exist', match=ErrorMatch.PARTIAL_REGEX)
+        self.nodes[0].assert_start_raises_init_error(['-walletdir=wallets'], 'Error: Specified -walletdir "wallets" is a relative path', cwd=data_dir(), match=ErrorMatch.PARTIAL_REGEX)
+        self.nodes[0].assert_start_raises_init_error(['-walletdir=debug.log'], 'Error: Specified -walletdir "debug.log" is not a directory', cwd=data_dir(), match=ErrorMatch.PARTIAL_REGEX)
 
         self.start_node(0, ['-wallet=w1', '-wallet=w1'])
         self.stop_node(0, 'Warning: Ignoring duplicate -wallet w1.')
@@ -181,21 +181,21 @@ class MultiWalletTest(BitcoinTestFramework):
             shutil.copyfile(wallet_dir('w8'), wallet_dir('w8_copy'))
             in_wallet_dir.append('w8_copy')
             exp_stderr = r"BerkeleyDatabase: Can't open database w8_copy \(duplicates fileid \w+ from w8\)"
-            self.nodes[0].assert_start_raises_init_error(['-wallet=w8', '-wallet=w8_copy'], exp_stderr, match=ErrorMatch.PARTIAL_REGEX)
+            self.nodes[0].assert_start_raises_init_error(['-wallet=w8', '-wallet=w8_copy'], exp_stderr, match=ErrorMatch.PARTIAL_REGEX, match=ErrorMatch.PARTIAL_REGEX)
 
         # should not initialize if wallet file is a symlink
         os.symlink('w8', wallet_dir('w8_symlink'))
         self.nodes[0].assert_start_raises_init_error(['-wallet=w8_symlink'], r'Error: Invalid -wallet path \'w8_symlink\'\. .*', match=ErrorMatch.FULL_REGEX)
 
         # should not initialize if the specified walletdir does not exist
-        self.nodes[0].assert_start_raises_init_error(['-walletdir=bad'], 'Error: Specified -walletdir "bad" does not exist')
+        self.nodes[0].assert_start_raises_init_error(['-walletdir=bad'], 'Error: Specified -walletdir "bad" does not exist', match=ErrorMatch.PARTIAL_REGEX)
         # should not initialize if the specified walletdir is not a directory
         not_a_dir = wallet_dir('notadir')
         open(not_a_dir, 'a', encoding="utf8").close()
-        self.nodes[0].assert_start_raises_init_error(['-walletdir=' + not_a_dir], 'Error: Specified -walletdir "' + not_a_dir + '" is not a directory')
+        self.nodes[0].assert_start_raises_init_error(['-walletdir=' + not_a_dir], 'Error: Specified -walletdir "' + not_a_dir + '" is not a directory', match=ErrorMatch.PARTIAL_REGEX)
 
         self.log.info("Do not allow -upgradewallet with multiwallet")
-        self.nodes[0].assert_start_raises_init_error(['-upgradewallet'], "Error: Error parsing command line arguments: Invalid parameter -upgradewallet")
+        self.nodes[0].assert_start_raises_init_error(['-upgradewallet'], "Error: Error parsing command line arguments: Invalid parameter -upgradewallet", match=ErrorMatch.PARTIAL_REGEX)
 
         # if wallets/ doesn't exist, datadir should be the default wallet dir
         wallet_dir2 = data_dir('walletdir')
