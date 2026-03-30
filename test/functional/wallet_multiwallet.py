@@ -82,6 +82,8 @@ class MultiWalletTest(BitcoinTestFramework):
         self.log.info("Verify warning is emitted when failing to scan the wallets directory")
         if platform.system() == 'Windows':
             self.log.warning('Skipping test involving chmod as Windows does not support it.')
+        elif platform.system() == 'Darwin':  # Add for macOS check
+            self.log.warning('Skipping test involving chmod on macOS.')
         elif os.geteuid() == 0:
             self.log.warning('Skipping test involving chmod as it requires a non-root user.')
         else:
@@ -181,7 +183,7 @@ class MultiWalletTest(BitcoinTestFramework):
             shutil.copyfile(wallet_dir('w8'), wallet_dir('w8_copy'))
             in_wallet_dir.append('w8_copy')
             exp_stderr = r"BerkeleyDatabase: Can't open database w8_copy \(duplicates fileid \w+ from w8\)"
-            self.nodes[0].assert_start_raises_init_error(['-wallet=w8', '-wallet=w8_copy'], exp_stderr, match=ErrorMatch.PARTIAL_REGEX, match=ErrorMatch.PARTIAL_REGEX)
+            self.nodes[0].assert_start_raises_init_error(['-wallet=w8', '-wallet=w8_copy'], exp_stderr, match=ErrorMatch.PARTIAL_REGEX)
 
         # should not initialize if wallet file is a symlink
         os.symlink('w8', wallet_dir('w8_symlink'))
