@@ -51,7 +51,7 @@ int64_t UpdateTime(CBlockHeader* pblock, const Consensus::Params& consensusParam
                                        TicksSinceEpoch<std::chrono::seconds>(NodeClock::now()))};
 
     if (nOldTime < nNewTime) {
-        pblock->nTime = nNewTime;
+        pblock->nTime = static_cast<uint32_t>(nNewTime); 
     }
 
     // Updating time can change work required on testnet:
