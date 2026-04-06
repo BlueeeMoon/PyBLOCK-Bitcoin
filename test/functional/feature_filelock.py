@@ -5,6 +5,7 @@
 """Check that it's not possible to start a second bitcoind instance using the same datadir or wallet."""
 import random
 import string
+import re
 
 from test_framework.test_framework import BitcoinTestFramework
 from test_framework.test_node import (
@@ -32,11 +33,11 @@ class FilelockTest(BitcoinTestFramework):
         self.log.info(f"Using blocksdir {blocksdir}")
 
         self.log.info("Check that we can't start a second bitcoind instance using the same datadir")
-        expected_msg = f"Error: Cannot obtain a lock on directory {datadir}. {self.config['environment']['CLIENT_NAME']} is probably already running."
+        expected_msg = f"Error: Cannot obtain a lock on directory {re.escape(str(datadir))}. {re.escape(self.config['environment']['CLIENT_NAME'])} is probably already running."
         self.nodes[1].assert_start_raises_init_error(extra_args=[f'-datadir={self.nodes[0].datadir_path}', '-noserver'], expected_msg=expected_msg, match=ErrorMatch.PARTIAL_REGEX)
 
         self.log.info("Check that we can't start a second bitcoind instance using the same blocksdir")
-        expected_msg = f"Error: Cannot obtain a lock on directory {blocksdir}. {self.config['environment']['CLIENT_NAME']} is probably already running."
+        expected_msg = f"Error: Cannot obtain a lock on directory {re.escape(str(blocksdir))}. {re.escape(self.config['environment']['CLIENT_NAME'])} is probably already running." 
         self.nodes[1].assert_start_raises_init_error(extra_args=[f'-blocksdir={self.nodes[0].datadir_path}', '-noserver'], expected_msg=expected_msg, match=ErrorMatch.PARTIAL_REGEX)
 
         self.log.info("Check that cookie and PID file are not deleted when attempting to start a second bitcoind using the same datadir/blocksdir")
