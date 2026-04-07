@@ -124,7 +124,7 @@ static void WalletShowInfo(CWallet* wallet_instance)
     tfm::format(std::cout, "Address Book: %zu\n", wallet_instance->m_address_book.size());
 }
 
-static bool ReadAndParseColdcardFile(const fs::path& path, UniValue& decriptors)
+static bool ReadAndParseColdcardFile(const fs::path& path, UniValue& descriptors)
 {
     std::ifstream file;
     file.open(path);
@@ -140,13 +140,13 @@ static bool ReadAndParseColdcardFile(const fs::path& path, UniValue& decriptors)
 
     file.close();
 
-    decriptors.clear();
-    if (!decriptors.read(line.substr(19, line.size() - 20))) {
+    descriptors.clear();
+    if (!descriptors.read(line.substr(19, line.size() - 20))) {
         tfm::format(std::cerr, "Unable to parse %s\n", fs::PathToString(path));
         return false;
     }
 
-    assert(decriptors.isArray());
+    assert(descriptors.isArray());
     return true;
 }
 

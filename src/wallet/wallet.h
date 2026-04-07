@@ -238,7 +238,7 @@ struct CAddressBookData
      */
     std::optional<std::string> label;
 
-    /** Whether address is the destination of any wallet transation.
+    /** Whether address is the destination of any wallet transaction.
      * Unlike other fields in address data struct, the used value is determined
      * at runtime and not serialized as part of address data.
      */
