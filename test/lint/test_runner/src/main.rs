@@ -221,7 +221,11 @@ fn lint_subtree() -> LintResult {
     // This only checks that the trees are pure subtrees, it is not doing a full
     // check with -r to not have to fetch all the remotes.
     let mut good = true;
+    let skip = ["src/secp256k1", "src/leveldb"];
     for subtree in get_subtrees() {
+        if skip.contains(&subtree) {
+            continue;
+        }
         good &= Command::new("test/lint/git-subtree-check.sh")
             .arg(subtree)
             .status()
