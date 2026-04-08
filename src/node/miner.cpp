@@ -51,7 +51,7 @@ int64_t UpdateTime(CBlockHeader* pblock, const Consensus::Params& consensusParam
                                        TicksSinceEpoch<std::chrono::seconds>(NodeClock::now()))};
 
     if (nOldTime < nNewTime) {
-        pblock->nTime = static_cast<uint32_t>(nNewTime); 
+        pblock->nTime = static_cast<uint32_t>(nNewTime);
     }
 
     // Updating time can change work required on testnet:
@@ -171,7 +171,7 @@ std::shared_ptr<CBlockTemplate> BlockAssembler::CreateNewBlock()
         pblock->nVersion = gArgs.GetIntArg("-blockversion", pblock->nVersion);
     }
 
-    pblock->nTime = static_cast<uint32_t>(TicksSinceEpoch<std::chrono::seconds>(NodeClock::now())); 
+    pblock->nTime = static_cast<uint32_t>(TicksSinceEpoch<std::chrono::seconds>(NodeClock::now()));
     m_lock_time_cutoff = pindexPrev->GetMedianTimePast();
 
     int nPackagesSelected = 0;
