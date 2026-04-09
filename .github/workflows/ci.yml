@@ -353,7 +353,7 @@ jobs:
           - name: 'previous releases, depends DEBUG'
             cirrus-runner: 'ghcr.io/cirruslabs/ubuntu-runner-amd64:24.04-md'
             fallback-runner: 'ubuntu-24.04'
-            timeout-minutes: 120
+            timeout-minutes: 360
             file-env: './ci/test/00_setup_env_native_previous_releases.sh'
 
           - name: 'CentOS, depends, gui'
