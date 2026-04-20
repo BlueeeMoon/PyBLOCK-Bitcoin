@@ -3544,7 +3544,7 @@ void PeerManagerImpl::ProcessMessage(CNode& pfrom, const std::string& msg_type, 
 
         pfrom.m_has_all_wanted_services = HasAllDesirableServiceFlags(nServices);
         // BIP-110: Allow up to 2 non-BIP110 outbound peers.
-        if (pfrom.ExpectServicesFromConn() && pfrom.m_conn_type != ConnectionType::MANUAL && !(nServices & NODE_REDUCED_DATA)) {
+        if (pfrom.ExpectServicesFromConn() && pfrom.m_conn_type == ConnectionType::OUTBOUND_FULL_RELAY && !(nServices & NODE_REDUCED_DATA)) {
             if (m_num_non_bip110_outbound >= 2) {
                 LogDebug(BCLog::NET, "peer lacks NODE_REDUCED_DATA and already have 2 non-BIP110 outbound peers, %s\n",
                          pfrom.DisconnectMsg(fLogIPs));
