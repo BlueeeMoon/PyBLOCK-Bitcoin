@@ -90,7 +90,7 @@ public:
                                              BanMan* banman, ChainstateManager& chainman,
                                              CTxMemPool& pool, node::Warnings& warnings, Options opts);
     virtual ~PeerManager() = default;
-    
+
     /**
      * Attempt to manually fetch block from a given peer.
      *
@@ -164,10 +164,6 @@ public:
     /** Get number of peers from which we're downloading blocks */
     virtual int GetNumberOfPeersWithValidatedDownloads() const EXCLUSIVE_LOCKS_REQUIRED(::cs_main) = 0;
 
-    /** Return the number of outbound full-relay peers that do not advertise
-     *  NODE_REDUCED_DATA.
-     */
-    virtual int GetOutboundNonReducedDataCount() const = 0;
 };
 
 #endif // BITCOIN_NET_PROCESSING_H
