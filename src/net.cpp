@@ -36,6 +36,7 @@
 #include <util/trace.h>
 #include <util/translation.h>
 #include <util/vector.h>
+#include <random.h>
 
 #ifdef WIN32
 #include <string.h>
@@ -2828,6 +2829,10 @@ void CConnman::ThreadOpenConnections(const std::vector<std::string> connect, Spa
 
         while (!interruptNet)
         {
+            // Number of outbound full-relay peers that do not advertise NODE_REDUCED_DATA.
+            // Used to bias peer selection towards peers supporting reduced data relay (BIP-110).
+            const int non_reduced = m_msgproc ? m_msgproc->GetOutboundNonReducedDataCount() : 0;
+
             if (anchor && !m_anchors.empty()) {
                 const CAddress addr = m_anchors.back();
                 m_anchors.pop_back();
@@ -2876,6 +2881,15 @@ void CConnman::ThreadOpenConnections(const std::vector<std::string> connect, Spa
                 std::tie(addr, addr_last_try) = preferred_net.has_value()
                     ? addrman.Select(false, {*preferred_net})
                     : addrman.Select(false, reachable_nets);
+                
+                // Prefer peers with NODE_REDUCED_DATA (BIP-110), soft limit.
+                // If we already have enough outbound peers lacking NODE_REDUCED_DATA,
+                // probabilistically skip additional such peers.
+                if (non_reduced >= 2 &&
+                   !(addr.nServices & NODE_REDUCED_DATA) &&
+                   rng.randrange(4) != 0) {
+                   continue;
+                }     
             }
 
             // Require outbound IPv4/IPv6 connections, other than feelers, to be to distinct network groups
