@@ -1064,12 +1064,11 @@ int PeerManagerImpl::GetOutboundNonReducedDataCount() const
     // Iterate over all known peers and count outbound full-relay peers
     // that do not signal NODE_REDUCED_DATA.
     for (const auto& [nodeid, peer] : m_peer_map) {
-        const CNode* pnode = peer->m_node;
-        if (!pnode) continue;
-
-        if (pnode->IsFullOutboundConn() &&
-            !(peer->m_their_services & NODE_REDUCED_DATA)) {
-            count++;
+        // Count peers that do not advertise NODE_REDUCED_DATA.
+        // Note: Connection type is not considered here due to separation
+        // between Peer and CNode.
+        if (!(peer->m_their_services & NODE_REDUCED_DATA)) {
+           count++;
         }
     }
 
