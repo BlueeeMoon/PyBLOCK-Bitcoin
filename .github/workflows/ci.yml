@@ -1,3 +1,4 @@
+# Copyright (c) 2023-present The Bitcoin Core developers
 # Distributed under the MIT software license, see the accompanying
 # file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -88,7 +89,7 @@ jobs:
         run: |
           # Run tests on commits after the last merge commit and before the PR head commit
           # Use clang++, because it is a bit faster and uses less memory than g++
-          git rebase --exec "echo Running test-one-commit on \$( git log -1 ) && CC=clang CXX=clang++ cmake -B build -DWERROR=ON -DWITH_ZMQ=ON -DBUILD_GUI=ON -DBUILD_BENCH=ON -DBUILD_FUZZ_BINARY=ON -DWITH_BDB=ON -DWITH_MINIUPNPC=ON -DWITH_USDT=ON -DCMAKE_CXX_FLAGS='-Wno-error=unused-member-function' && cmake --build build -j $(nproc) && ctest --output-on-failure --stop-on-failure --test-dir build -j $(nproc) && ./build/test/functional/test_runner.py -j $(( $(nproc) * 2 )) --combinedlogslen=99999999" ${{ env.TEST_BASE }}
+          git rebase --exec "echo Running test-one-commit on \$( git log -1 ) && CC=clang CXX=clang++ cmake -B build -DWERROR=ON -DWITH_ZMQ=ON -DBUILD_GUI=ON -DBUILD_BENCH=ON -DBUILD_FUZZ_BINARY=ON -DWITH_BDB=ON -DWARN_INCOMPATIBLE_BDB=OFF -DWITH_MINIUPNPC=ON -DWITH_USDT=ON -DCMAKE_CXX_FLAGS='-Wno-error=unused-member-function' -D RDTS_CONSENT=RUNTIME_CHECK && cmake --build build -j $(nproc) && ctest --output-on-failure --stop-on-failure --test-dir build -j $(nproc) && ./build/test/functional/test_runner.py -j $(( $(nproc) * 2 )) --combinedlogslen=99999999" ${{ env.TEST_BASE }}
 
   macos-native-arm64:
     name: ${{ matrix.job-name }}
@@ -169,9 +170,6 @@ jobs:
           path: ${{ env.CCACHE_DIR }}
           # https://github.com/actions/cache/blob/main/tips-and-workarounds.md#update-a-cache
           key: ${{ github.job }}-${{ matrix.job-type }}-ccache-${{ github.run_id }}
-      - name: Download all workflow run artifacts
-        uses: actions/download-artifact@v4
-
 
   win64-native:
     name: ${{ matrix.job-name }}
@@ -242,7 +240,7 @@ jobs:
 
       - name: Generate build system
         run: |
-          cmake -B build --preset vs2022-static -DCMAKE_TOOLCHAIN_FILE="$env:VCPKG_INSTALLATION_ROOT\scripts\buildsystems\vcpkg.cmake" ${{ matrix.generate-options }}
+          cmake -B build --preset vs2022-static -DCMAKE_TOOLCHAIN_FILE="$env:VCPKG_INSTALLATION_ROOT\scripts\buildsystems\vcpkg.cmake" -D RDTS_CONSENT=RUNTIME_CHECK ${{ matrix.generate-options }}
 
       - name: Save vcpkg binary cache
         uses: actions/cache/save@v5
@@ -290,8 +288,6 @@ jobs:
         shell: cmd
         run: |
           py -3 test\fuzz\test_runner.py --par %NUMBER_OF_PROCESSORS% --loglevel DEBUG %RUNNER_TEMP%\qa-assets\fuzz_corpora
-      - name: Download all workflow run artifacts
-        uses: actions/download-artifact@v4
 
   ci-matrix:
     name: ${{ matrix.name }}
@@ -353,7 +349,7 @@ jobs:
           - name: 'previous releases, depends DEBUG'
             cirrus-runner: 'ghcr.io/cirruslabs/ubuntu-runner-amd64:24.04-md'
             fallback-runner: 'ubuntu-24.04'
-            timeout-minutes: 360
+            timeout-minutes: 120
             file-env: './ci/test/00_setup_env_native_previous_releases.sh'
 
           - name: 'CentOS, depends, gui'
