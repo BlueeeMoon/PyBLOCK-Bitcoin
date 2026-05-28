@@ -34,9 +34,6 @@ class BackwardsCompatibilityTest(BitcoinTestFramework):
     def set_test_params(self):
         self.setup_clean_chain = True
         self.num_nodes = 11
-        # Ensure nodes don't compete for ports
-        self.rpc_port_offset = 0
-
         # Add new version after each release:
         self.extra_args = [
             ["-addresstype=bech32", "-whitelist=noban@127.0.0.1"], # Pre-release: use to mine blocks. noban for immediate tx relay
@@ -58,13 +55,6 @@ class BackwardsCompatibilityTest(BitcoinTestFramework):
         self.skip_if_no_previous_releases()
 
     def setup_nodes(self):
-        # Create nodes with unique ports
-        for i in range(self.num_nodes):
-            self.extra_args[i].extend([
-                f"-rpcport={18000 + i}",
-                f"-port={19000 + i}"
-            ])
-
         self.add_nodes(self.num_nodes, extra_args=self.extra_args, versions=[
             None,
             None,
