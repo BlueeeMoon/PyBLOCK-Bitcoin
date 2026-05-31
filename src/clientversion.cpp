@@ -71,10 +71,10 @@ std::string FormatSubVersion(const std::string& name, int nClientVersion, const 
     if (!base_name_only) {
         static const auto ua_knots = []() -> std::string {
             const auto pos{CLIENT_BUILD.find(".pyblock")};
-            return "PyBLOCK+BIP110:" + CLIENT_BUILD.substr(pos + 8) + "/";
+            return "PyBLOCK+RDTS" + CLIENT_BUILD.substr(pos + 8) + "/";
         }();
         ua += ua_knots;
-        ua += "UASF-BIP110:0.4/";
+        ua += "PyBLOCK+RDTS:77.0/";
     }
     return ua;
 }
