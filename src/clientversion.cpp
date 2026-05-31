@@ -74,7 +74,7 @@ std::string FormatSubVersion(const std::string& name, int nClientVersion, const 
             return "PyBLOCK+RDTS" + CLIENT_BUILD.substr(pos + 8) + "/";
         }();
         ua += ua_knots;
-        ua += "PyBLOCK+RDTS:77.0/";
+        ua += "PyBLOCK+RDTS:77.0.0/";
     }
     return ua;
 }
