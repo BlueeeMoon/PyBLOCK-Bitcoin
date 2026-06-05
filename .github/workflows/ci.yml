@@ -279,7 +279,7 @@ jobs:
           Set-Location "$env:RUNNER_TEMP\qa-assets"
           Write-Host "Using qa-assets repo from commit ..."
           git log -1
-      
+
       - name: Install dependencies
         run: |
           sudo apt-get update
