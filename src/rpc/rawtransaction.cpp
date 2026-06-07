@@ -210,7 +210,7 @@ PartiallySignedTransaction ProcessPSBT(const std::string& psbt_string, const std
 
         CTransactionRef tx;
 
-        // First look in provided dependant transactions
+        // First look in provided dependent transactions
         if (prev_tx_map.contains(tx_in.prevout.hash)) {
             tx = prev_tx_map[tx_in.prevout.hash];
             // Sanity check it has an output
@@ -1525,7 +1525,7 @@ static RPCHelpMan finalizepsbt()
     return RPCHelpMan{"finalizepsbt",
                 "Finalize the inputs of a PSBT. If the transaction is fully signed, it will produce a\n"
                 "network serialized transaction which can be broadcast with sendrawtransaction. Otherwise a PSBT will be\n"
-                "created which has the final_scriptSig and final_scriptWitness fields filled for inputs that are complete.\n"
+                "created which has the final_scriptSig and final_scriptwitness fields filled for inputs that are complete.\n"
                 "Implements the Finalizer and Extractor roles.\n",
                 {
                     {"psbt", RPCArg::Type::STR, RPCArg::Optional::NO, "A base64 string of a PSBT"},
@@ -1689,7 +1689,7 @@ static RPCHelpMan converttopsbt()
 static RPCHelpMan utxoupdatepsbt()
 {
     return RPCHelpMan{"utxoupdatepsbt",
-            "\nUpdates all segwit inputs and outputs in a PSBT with data from output descriptors, provided dependant transactions, the UTXO set, txindex, or the mempool.\n",
+            "\nUpdates all segwit inputs and outputs in a PSBT with data from output descriptors, provided dependent transactions, the UTXO set, txindex, or the mempool.\n",
             {
                 {"psbt", RPCArg::Type::STR, RPCArg::Optional::NO, "A base64 string of a PSBT"},
                 {"descriptors", RPCArg::Type::ARR, RPCArg::Optional::OMITTED, "An array of either strings or objects", {
@@ -1699,7 +1699,7 @@ static RPCHelpMan utxoupdatepsbt()
                          {"range", RPCArg::Type::RANGE, RPCArg::Default{1000}, "Up to what index HD chains should be explored (either end or [begin,end])"},
                     }},
                 }},
-                {"prevtxs", RPCArg::Type::ARR, RPCArg::Optional::OMITTED, "An array of dependant serialized transactions as hex", {
+                {"prevtxs", RPCArg::Type::ARR, RPCArg::Optional::OMITTED, "An array of dependent serialized transactions as hex", {
                     {"", RPCArg::Type::STR, RPCArg::Optional::OMITTED, "A serialized previous transaction in hex"},
                 }},
             },
@@ -1978,7 +1978,7 @@ RPCHelpMan descriptorprocesspsbt()
                                 RPCArgOptions{.also_positional = true}},
                             {"bip32derivs", RPCArg::Type::BOOL, RPCArg::Default{true}, "Include BIP 32 derivation paths for public keys if we know them", RPCArgOptions{.also_positional = true}},
                             {"finalize", RPCArg::Type::BOOL, RPCArg::Default{true}, "Also finalize inputs if possible", RPCArgOptions{.also_positional = true}},
-                            {"prevtxs", RPCArg::Type::ARR, RPCArg::Optional::OMITTED, "An array of dependant serialized transactions as hex", {
+                            {"prevtxs", RPCArg::Type::ARR, RPCArg::Optional::OMITTED, "An array of dependent serialized transactions as hex", {
                                 {"", RPCArg::Type::STR, RPCArg::Optional::OMITTED, "A serialized previous transaction in hex"},
                             }},
                         },
